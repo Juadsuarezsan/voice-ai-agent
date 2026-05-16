@@ -1,0 +1,86 @@
+{
+  "project": "voice-ai-agent",
+  "generated_at": "2026-05-16T00:00:00Z",
+  "predictions": [
+    {
+      "ticket": "Hey, what's on my calendar tomorrow?",
+      "top_intent": "query_calendar",
+      "confidence": 0.93,
+      "alternatives": [
+        {
+          "intent": "query_reminders",
+          "confidence": 0.05
+        },
+        {
+          "intent": "general_chat",
+          "confidence": 0.02
+        }
+      ],
+      "inference_ms": 1420.0
+    },
+    {
+      "ticket": "Set a timer for fifteen minutes.",
+      "top_intent": "set_timer",
+      "confidence": 0.98,
+      "alternatives": [
+        {
+          "intent": "set_alarm",
+          "confidence": 0.015
+        },
+        {
+          "intent": "general_chat",
+          "confidence": 0.005
+        }
+      ],
+      "inference_ms": 980.0
+    },
+    {
+      "ticket": "Translate \u2018good morning\u2019 into Japanese.",
+      "top_intent": "translate",
+      "confidence": 0.97,
+      "alternatives": [
+        {
+          "intent": "general_chat",
+          "confidence": 0.02
+        },
+        {
+          "intent": "spell",
+          "confidence": 0.01
+        }
+      ],
+      "inference_ms": 1310.0
+    },
+    {
+      "ticket": "What's the weather in Bogot\u00e1 right now?",
+      "top_intent": "query_weather",
+      "confidence": 0.96,
+      "alternatives": [
+        {
+          "intent": "general_chat",
+          "confidence": 0.03
+        },
+        {
+          "intent": "query_calendar",
+          "confidence": 0.01
+        }
+      ],
+      "inference_ms": 1290.0
+    },
+    {
+      "ticket": "Tell me a quick joke.",
+      "top_intent": "general_chat",
+      "confidence": 0.95,
+      "alternatives": [
+        {
+          "intent": "query_news",
+          "confidence": 0.03
+        },
+        {
+          "intent": "play_music",
+          "confidence": 0.02
+        }
+      ],
+      "inference_ms": 1150.0
+    }
+  ]
+}
