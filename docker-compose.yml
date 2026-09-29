@@ -1,20 +1,37 @@
 services:
   postgres:
-    image: pgvector/pgvector:pg16
-    environment: { POSTGRES_USER: voice, POSTGRES_PASSWORD: voice_dev, POSTGRES_DB: voice }
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: voice
+      POSTGRES_PASSWORD: voice_dev
+      POSTGRES_DB: voice
     ports: ["5432:5432"]
     volumes: [postgres-data:/var/lib/postgresql/data]
-    healthcheck: { test: ["CMD-SHELL","pg_isready -U voice"], interval: 5s, retries: 10 }
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U voice"]
+      interval: 5s
+      retries: 10
+
   api:
-    build: .
+    build:
+      context: .
+      target: ${VOICE_IMAGE_TARGET:-base}   # base (stub/hosted) or audio (whisper+xtts+silero)
     env_file: .env
     environment:
+      LOGGER_BACKEND: postgres
       DATABASE_URL: postgresql://voice:voice_dev@postgres:5432/voice
-
+      CORS_ORIGINS: http://localhost:3000,http://localhost:8080
     depends_on:
-      postgres: { condition: service_healthy }
-
+      postgres:
+        condition: service_healthy
     ports: ["8000:8000"]
-    volumes: [./src:/app/src, ./data:/app/data]
+
+  demo:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./demo:/usr/share/nginx/html:ro
+    ports: ["8080:80"]
+    depends_on: [api]
+
 volumes:
   postgres-data:

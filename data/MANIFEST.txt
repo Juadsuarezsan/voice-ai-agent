@@ -1,0 +1,5 @@
+# sha256  file  dataset  license  bytes  timestamp
+# Committed fixtures (hashes computed with `sha256sum`); downloaded datasets are appended by scripts/download_data.py.
+9cdbb17c9293bd833fbded0275e2ecda5435b8fcd2692292598e7b88c12c37fe  data/eval/conversations.jsonl  synthetic-eval-set(seed=20260516)  MIT(this repo)  -  2026-09-29T00:00:00Z
+15d574f14991bb128bbbd9d26cbb62376f7b2111ef4ef5fe5115bea73ce604da  data/eval/wer_fixture/references.txt  wer-fixture(hand-written)  MIT(this repo)  -  2026-09-29T00:00:00Z
+178f9f11e0216d10b96b47f16fc9f80d63290ec218d9550fe758499b85a4b6e1  data/eval/wer_fixture/hypotheses.txt  wer-fixture(hand-written)  MIT(this repo)  -  2026-09-29T00:00:00Z

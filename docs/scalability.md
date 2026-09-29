@@ -1,52 +1,72 @@
-# Scalability — Voice AI Conversational Agent
+# Escalabilidad y costo — Voice AI Conversational Agent
 
-How this system holds up at 100×, 1000×, and 10000× current load. Be honest
-where it breaks.
+## Dónde está el cuello de botella
 
-## Current capacity (single replica, default config)
+Un turno de voz es una cadena serial: STT → LLM → TTS. Con stubs el p95 es
+5 ms (`eval/RESULTS.md`), es decir, la orquestación (FastAPI + LangGraph +
+logger) no aporta latencia apreciable. Todo el presupuesto de <800 ms se lo
+reparten los tres servicios externos, y ninguno se ha medido aquí todavía
+(requiere llaves y GPU). Orden de magnitud público de cada proveedor, que no
+sustituye a la medición:
 
-- **Throughput**: ~50 req/min (LLM-bound on Claude p95 ~3-5s)
-- **Per-request cost**: roughly $0.005-0.040 depending on the project
-- **Memory**: < 500 MB without local ML models; ~1.5 GB with sentence-transformers
-- **CPU**: irrelevant — bottleneck is network I/O to Claude/Voyage/Cohere
+| Etapa | Componente | Escala con | Notas |
+|---|---|---|---|
+| STT | whisper-large-v3 GPU / Whisper API | segundos de audio | En CPU `base` tarda varios segundos por turno; inviable para <800 ms. |
+| LLM | Claude Sonnet 4.5, ~150 tokens de salida | tokens de salida y longitud del historial | Se recorta el historial a 12 mensajes y el estado va como JSON compacto. |
+| TTS | ElevenLabs / XTTS-v2 | caracteres | El streaming por chunks es la única forma de que el primer byte llegue antes de que termine la síntesis. |
 
-## 100× users (5K req/min)
+## Estimación de costo por minuto (supuestos explícitos, no medición)
 
-What works:
-- FastAPI + uvicorn handle this fine with `--workers 4` on a 4-core box.
-- Postgres+pgvector at 50K rows + IVFFLAT index handles >1000 QPS without tuning.
-- Per-session state is small (~10 KB) — Redis fits this with default config.
+Supuestos: un minuto de conversación tiene ~6 turnos; cada turno envía
+~700 tokens de entrada (sistema + historial + estado) y recibe ~60 tokens; la
+respuesta hablada tiene ~90 caracteres; el cliente habla ~25 s por minuto.
+Precios de lista configurados en `.env.example`.
 
-What needs attention:
-- Claude rate limits become the bottleneck (Anthropic default is ~5 req/s per
-  account). Solution: contact Anthropic for tier increase OR add a request
-  queue with prioritization.
-- Synthesis tokens dominate cost. Consider per-tenant budgets to prevent
-  runaway burn.
+| Partida | Cálculo | USD/min |
+|---|---|---|
+| Claude Sonnet 4.5 | 6 × (700 × 3 + 60 × 15) / 1e6 | 0.018 |
+| ElevenLabs | 6 × 90 chars × 0.30 / 1000 | 0.162 |
+| Whisper API | 25 s / 60 × 0.006 | 0.003 |
+| **Total (todo hospedado)** | | **≈ 0.18** |
+| Con Whisper local + XTTS-v2 en GPU propia | solo Claude | ≈ 0.02 + amortización de GPU |
 
-## 1000× users (50K req/min)
+El TTS premium domina el costo (≈ 90 %). Con 1.000 usuarios/mes y 5 minutos
+por usuario: ≈ 900 USD/mes todo hospedado, ≈ 100 USD/mes más una GPU si STT y
+TTS son locales. La medición real (`usage.cost_usd` acumulado en
+`GET /api/metrics`) sustituirá estas cifras cuando existan llaves.
 
-What needs to change:
-- **Separate read replica for Postgres**. The IVFFLAT index becomes a hot
-  spot. Add a HNSW index for higher recall at higher QPS.
-- **Embedding cache by query hash** in Redis. The same query embedded twice
-  is wasted spend on Voyage.
-- **Pre-warm Qdrant** to fit hot-collection in memory.
-- **Move synthesis off the request path** for non-interactive use cases —
-  stream events instead.
+## Capacidad actual (una réplica, stubs)
 
-## 10000× users (500K req/min)
+- El proceso es asíncrono; STT local corre en el executor de hilos para no
+  bloquear el event loop.
+- El estado de sesión vive en memoria del proceso (`VoiceLoop._sessions`): una
+  sola réplica o afinidad de sesión.
+- `RATE_LIMIT=30/minute` por IP con `slowapi` en memoria.
 
-This is the territory where a single backend doesn't work anymore:
-- Horizontal shard by tenant or by document corpus.
-- Async LLM execution via a queue (Celery + Redis or SQS + Lambda).
-- Eval moves out of the API process into a scheduled job.
-- Consider self-hosting a smaller fine-tuned LLM for the high-volume,
-  low-complexity intent classification step.
+## 100× (miles de llamadas concurrentes)
 
-## What we'd never auto-scale
+- **Estado de sesión** → Redis con TTL (la `SessionState` cabe en <5 KB). El
+  `VoiceLoop` ya aísla `_get_or_create`, así que es un cambio local.
+- **Rate limit** → `slowapi` con almacenamiento Redis para que sea global.
+- **STT/TTS** → servicios separados con autoscaling por GPU; la API solo
+  orquesta. Whisper por lotes no aplica en tiempo real; sí aplica *batching*
+  de síntesis para respuestas idénticas (caché por hash de texto + voz).
+- **Postgres** → `psycopg_pool` ya está; pasar a `AsyncConnectionPool` y a
+  particionado por mes de la tabla `turns` (solo escritura, lectura por
+  `session_id` indexada).
 
-The eval harness is single-tenant by design. It runs against a stable
-fixture so metrics are comparable across runs. Scaling the eval is solved by
-running more *kinds* of evals (adversarial, multi-language, longer-context),
-not by parallelism.
+## 1.000×
+
+- Canal telefónico real (LiveKit/Twilio) con VAD Silero en streaming y STT
+  incremental: el turno no espera al fin del audio para transcribir.
+- Un modelo más pequeño (Haiku) para los turnos de puro slot filling y Sonnet
+  solo cuando el estado cambia de fase; la rúbrica del juez mide si baja la
+  resolución.
+- Colas para el `logger_node` (escribir el turno fuera del camino crítico).
+
+## Lo que no escala y se acepta
+
+- El stub determinista es un baseline y no debe recibir tráfico real.
+- El eval set sintético mide regresiones, no calidad absoluta: la
+  validación real es el LLM-as-judge sobre conversaciones con Claude (pendiente
+  de llave) y, después, transcripciones de llamadas reales anonimizadas.

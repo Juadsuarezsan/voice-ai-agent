@@ -17,3 +17,10 @@ models/checkpoints/
 *.parquet
 logs/
 .ipynb_checkpoints/
+
+# Coverage / notebooks / local eval scratch
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+notebooks/.ipynb_checkpoints/
