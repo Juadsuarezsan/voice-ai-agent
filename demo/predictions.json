@@ -1,86 +1,1132 @@
 {
   "project": "voice-ai-agent",
-  "generated_at": "2026-05-16T00:00:00Z",
-  "predictions": [
+  "generated_at": "2026-09-29T01:28:59Z",
+  "generator": "scripts/build_demo_cases.py",
+  "backend": "fallback determinista, sin LLM (StubReasoner + STT/TTS stub)",
+  "model_when_enabled": "claude-sonnet-4-5-20250929",
+  "note": "Transcripts, actions, slots and latencies are real outputs of the repository code with stub backends. They are not Claude/Whisper/ElevenLabs results. Placeholder audio omitted; the live demo fetches audio from POST /api/turn.",
+  "cases": [
     {
-      "ticket": "Hey, what's on my calendar tomorrow?",
-      "top_intent": "query_calendar",
-      "confidence": 0.93,
-      "alternatives": [
+      "id": "demo-01",
+      "title": "Reserva paso a paso (6 turnos)",
+      "turns": [
         {
-          "intent": "query_reminders",
-          "confidence": 0.05
+          "turn": 1,
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 3,
+            "tts_ms": 1,
+            "logger_ms": 0,
+            "total_ms": 9
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         },
         {
-          "intent": "general_chat",
-          "confidence": 0.02
+          "turn": 2,
+          "user": "Four people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 4,
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 3,
+          "user": "Tomorrow evening.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 4,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tomorrow",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 4,
+          "user": "7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 4,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tomorrow",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "19:30",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 5,
+          "user": "Under the name John Smith.",
+          "agent": "Just to confirm: a table for 4 on tomorrow at 19:30 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 4,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tomorrow",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "19:30",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "John Smith",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 6,
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 4, on tomorrow at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book",
+          "finished": true,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 4,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tomorrow",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "19:30",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "John Smith",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         }
       ],
-      "inference_ms": 1420.0
+      "final_action": "book"
     },
     {
-      "ticket": "Set a timer for fifteen minutes.",
-      "top_intent": "set_timer",
-      "confidence": 0.98,
-      "alternatives": [
+      "id": "demo-02",
+      "title": "Corrección durante la confirmación (7 turnos)",
+      "turns": [
         {
-          "intent": "set_alarm",
-          "confidence": 0.015
+          "turn": 1,
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         },
         {
-          "intent": "general_chat",
-          "confidence": 0.005
+          "turn": 2,
+          "user": "There will be two of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 2,
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 3,
+          "user": "For Friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 2,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "friday",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 4,
+          "user": "At 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 2,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "friday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "20:00",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 5,
+          "user": "My name is Maria Lopez.",
+          "agent": "Just to confirm: a table for 2 on friday at 20:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 2,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "friday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "20:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Maria Lopez",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 6,
+          "user": "No, make it 6 people.",
+          "agent": "No problem. Just to confirm: a table for 6 on friday at 20:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 6,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "friday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "20:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Maria Lopez",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 7,
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 6, on friday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book",
+          "finished": true,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 6,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "friday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "20:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Maria Lopez",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         }
       ],
-      "inference_ms": 980.0
+      "final_action": "book"
     },
     {
-      "ticket": "Translate \u2018good morning\u2019 into Japanese.",
-      "top_intent": "translate",
-      "confidence": 0.97,
-      "alternatives": [
+      "id": "demo-03",
+      "title": "Todo en una frase y confirmación (6 turnos con relleno)",
+      "turns": [
         {
-          "intent": "general_chat",
-          "confidence": 0.02
+          "turn": 1,
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         },
         {
-          "intent": "spell",
-          "confidence": 0.01
+          "turn": 2,
+          "user": "um, let me think.",
+          "agent": "How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 3,
+          "user": "Booking for 3 people tonight at 6:45 pm under Carlos.",
+          "agent": "Just to confirm: a table for 3 on tonight at 18:45 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 3,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tonight",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "18:45",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Carlos",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 5
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 4,
+          "user": "Hmm, one second.",
+          "agent": "Just to confirm: a table for 3 on tonight at 18:45 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 3,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tonight",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "18:45",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Carlos",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 5,
+          "user": "Actually, could it be Priya Patel instead?",
+          "agent": "No problem. Just to confirm: a table for 3 on tonight at 18:45 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 3,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tonight",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "18:45",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Priya Patel",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 6,
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 3, on tonight at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book",
+          "finished": true,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 3,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "tonight",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "18:45",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Priya Patel",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         }
       ],
-      "inference_ms": 1310.0
+      "final_action": "book"
     },
     {
-      "ticket": "What's the weather in Bogot\u00e1 right now?",
-      "top_intent": "query_weather",
-      "confidence": 0.96,
-      "alternatives": [
+      "id": "demo-04",
+      "title": "Pide hablar con una persona en la confirmación (6 turnos)",
+      "turns": [
         {
-          "intent": "general_chat",
-          "confidence": 0.03
+          "turn": 1,
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         },
         {
-          "intent": "query_calendar",
-          "confidence": 0.01
+          "turn": 2,
+          "user": "Party of 8.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 8,
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 3,
+          "user": "Saturday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 8,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "saturday",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 4,
+          "user": "9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 8,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "saturday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "21:00",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 5,
+          "user": "Under Daniel.",
+          "agent": "Just to confirm: a table for 8 on saturday at 21:00 under the name Daniel. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 8,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "saturday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "21:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Daniel",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 6,
+          "user": "Actually, I'd rather talk to a real person.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human",
+          "finished": true,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 8,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "saturday",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "21:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Daniel",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         }
       ],
-      "inference_ms": 1290.0
+      "final_action": "transfer_to_human"
     },
     {
-      "ticket": "Tell me a quick joke.",
-      "top_intent": "general_chat",
-      "confidence": 0.95,
-      "alternatives": [
+      "id": "demo-05",
+      "title": "Fecha ISO, mediodía y nombre compuesto (6 turnos)",
+      "turns": [
         {
-          "intent": "query_news",
-          "confidence": 0.03
+          "turn": 1,
+          "user": "Hello, I'd like to book a table for lunch.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         },
         {
-          "intent": "play_music",
-          "confidence": 0.02
+          "turn": 2,
+          "user": "Five of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 5,
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 3,
+          "user": "2026-10-03.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 5,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "2026-10-03",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 4,
+          "user": "Noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 5,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "2026-10-03",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "12:00",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 5,
+          "user": "It's Sofia Rossi.",
+          "agent": "Just to confirm: a table for 5 on 2026-10-03 at 12:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification",
+          "finished": false,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 5,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "2026-10-03",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "12:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Sofia Rossi",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 4
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
+        },
+        {
+          "turn": 6,
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 5, on 2026-10-03 at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book",
+          "finished": true,
+          "slots": [
+            {
+              "name": "party_size",
+              "value": 5,
+              "confirmed": true
+            },
+            {
+              "name": "date",
+              "value": "2026-10-03",
+              "confirmed": true
+            },
+            {
+              "name": "time",
+              "value": "12:00",
+              "confirmed": true
+            },
+            {
+              "name": "name",
+              "value": "Sofia Rossi",
+              "confirmed": true
+            }
+          ],
+          "latency": {
+            "vad_ms": 0,
+            "stt_ms": 0,
+            "llm_ms": 0,
+            "tts_ms": 0,
+            "logger_ms": 0,
+            "total_ms": 3
+          },
+          "backends": {
+            "stt": "stub",
+            "reasoner": "stub",
+            "tts": "stub"
+          },
+          "audio_omitted": true
         }
       ],
-      "inference_ms": 1150.0
+      "final_action": "book"
     }
   ]
 }
