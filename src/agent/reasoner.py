@@ -347,7 +347,9 @@ class StubReasoner:
         stop = {"the", "a", "an", "table", "two", "three", "four", "five", "six", "seven"}
         stop |= {"eight", "nine", "ten", "tonight", "tomorrow", "today", "dinner", "lunch"}
         for prefix in anchors:
-            m = re.search(prefix + r"([A-Z][a-zA-Z\-']+)(?:\s+([A-Z][a-zA-Z\-']+))?", text)
+            m = re.search(
+                "(?i:" + prefix + r")([A-Z][a-zA-Z\-']+)(?:\s+([A-Z][a-zA-Z\-']+))?", text
+            )
             if m:
                 first = m.group(1)
                 if first.lower() in stop:

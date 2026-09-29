@@ -12,8 +12,6 @@ CORS origins and the rate limit come from :class:`src.config.Settings`; all
 domain errors are mapped to typed JSON errors instead of ``500 str(exc)``.
 """
 
-from __future__ import annotations
-
 import statistics
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
