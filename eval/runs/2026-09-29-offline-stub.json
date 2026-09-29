@@ -1,0 +1,6204 @@
+{
+  "name": "offline-stub",
+  "generated_at": "2026-09-29T01:23:45Z",
+  "run_file": "eval/runs/2026-09-29-offline-stub.json",
+  "model": "claude-sonnet-4-5-20250929",
+  "llm_enabled": false,
+  "backends": {
+    "reasoner": "stub (fallback determinista, sin LLM)",
+    "stt": "stub",
+    "tts": "stub",
+    "vad": "energy"
+  },
+  "dataset": {
+    "path": "data/eval/conversations.jsonl",
+    "n": 100,
+    "synthetic": true
+  },
+  "baselines": {
+    "stub_heuristic": {
+      "backend": "stub_heuristic",
+      "n": 100,
+      "resolved": 90,
+      "resolution_rate": 0.9,
+      "booking_n": 82,
+      "booking_resolution_rate": 0.878,
+      "transfer_n": 18,
+      "transfer_accuracy": 1.0,
+      "slot_exact_match_rate": 0.878,
+      "avg_turns_to_finish": 4.47,
+      "latency_mean_ms": 3.31,
+      "latency_p50_ms": 3,
+      "latency_p95_ms": 5,
+      "total_input_tokens": 0,
+      "total_output_tokens": 0,
+      "total_cost_usd": 0.0,
+      "per_scenario": {
+        "correction": {
+          "n": 12.0,
+          "resolved": 12.0,
+          "resolution_rate": 1.0
+        },
+        "incremental": {
+          "n": 40.0,
+          "resolved": 40.0,
+          "resolution_rate": 1.0
+        },
+        "one_shot": {
+          "n": 20.0,
+          "resolved": 20.0,
+          "resolution_rate": 1.0
+        },
+        "out_of_scope": {
+          "n": 8.0,
+          "resolved": 8.0,
+          "resolution_rate": 1.0
+        },
+        "spanish": {
+          "n": 10.0,
+          "resolved": 0.0,
+          "resolution_rate": 0.0
+        },
+        "transfer_human": {
+          "n": 10.0,
+          "resolved": 10.0,
+          "resolution_rate": 1.0
+        }
+      }
+    }
+  },
+  "skipped_baselines": {
+    "claude_zero_shot_stateless": "pendiente (requiere ANTHROPIC_API_KEY)",
+    "claude_pipeline": "pendiente (requiere ANTHROPIC_API_KEY)"
+  },
+  "judge": {
+    "heuristic": {
+      "n": 100,
+      "pass_rate": 0.9,
+      "task_completion": 0.9,
+      "slot_correctness": 0.9,
+      "no_unnecessary_transfer": 1.0,
+      "efficiency": 1.0,
+      "naturalness_mean": 3.56
+    }
+  },
+  "ablations": {
+    "vad": [
+      {
+        "vad": "energy",
+        "n_silence": 10,
+        "n_speech": 10,
+        "silence_rejected": 10,
+        "speech_passed": 10,
+        "silence_rejection_rate": 1.0,
+        "speech_pass_rate": 1.0,
+        "stt_calls_saved": 10,
+        "vad_overhead_ms_mean": 0.0
+      },
+      {
+        "vad": "off",
+        "n_silence": 10,
+        "n_speech": 10,
+        "silence_rejected": 0,
+        "speech_passed": 10,
+        "silence_rejection_rate": 0.0,
+        "speech_pass_rate": 1.0,
+        "stt_calls_saved": 0,
+        "vad_overhead_ms_mean": 0.0
+      }
+    ],
+    "whisper": "pendiente (requiere extra `[stt]` con torch y LibriSpeech; openslr.org bloqueado en este entorno)"
+  },
+  "latency_per_node_ms": {
+    "llm": 0.07,
+    "stt": 0.01,
+    "tts": 0.25,
+    "vad": 0.0
+  },
+  "failures": [
+    {
+      "id": "conv-091",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Maria Lopez"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 5 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Maria Lopez.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-092",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 2,
+        "time": "18:45"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 2, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 18:45.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-093",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 4,
+        "time": "19:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Sofia Rossi"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 4, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 19:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-094",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 8,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "friday",
+        "time": "21:00",
+        "name": "Carlos"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 8 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A nombre de Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-095",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 4,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Ahmed"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 4 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A nombre de Ahmed.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-096",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 6,
+        "time": "12:00"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Ahmed"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 6, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 12:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Ahmed.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-097",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 4,
+        "time": "20:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Carlos"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 4 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 20:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-098",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Emily Chen"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 5 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Emily Chen.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-099",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "friday",
+        "time": "21:00",
+        "name": "Carlos"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 5, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    },
+    {
+      "id": "conv-100",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "slots": {
+        "party_size": 4,
+        "time": "20:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "turns_used": 6,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 4, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 20:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ]
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "conv-001",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        8,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 5 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Sofia Rossi.",
+          "agent": "Just to confirm: a table for 5 on friday at 12:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 5, on friday at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-002",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Ahmed"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Ahmed"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 8.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Ahmed.",
+          "agent": "Just to confirm: a table for 8 on tonight at 12:00 under the name Ahmed. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Ahmed, party of 8, on tonight at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-003",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        5,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 10.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say friday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Emily Chen.",
+          "agent": "Just to confirm: a table for 10 on friday at 20:00 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 10, on friday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-004",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "date": "sunday",
+        "time": "12:00",
+        "name": "Daniel"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "sunday",
+        "time": "12:00",
+        "name": "Daniel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        9,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say sunday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Daniel.",
+          "agent": "Just to confirm: a table for 8 on sunday at 12:00 under the name Daniel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Daniel, party of 8, on sunday at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-005",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        5,
+        8,
+        3,
+        3,
+        8
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "10 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Sofia Rossi.",
+          "agent": "Just to confirm: a table for 10 on friday at 19:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 10, on friday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-006",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "saturday",
+        "time": "12:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "saturday",
+        "time": "12:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3,
+        3,
+        3,
+        4,
+        7
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 6 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say saturday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Priya Patel.",
+          "agent": "Just to confirm: a table for 6 on saturday at 12:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 6, on saturday at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-007",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 1,
+        "date": "friday",
+        "time": "18:45",
+        "name": "Ahmed"
+      },
+      "expected_slots": {
+        "party_size": 1,
+        "date": "friday",
+        "time": "18:45",
+        "name": "Ahmed"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        8,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "1 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say friday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Ahmed.",
+          "agent": "Just to confirm: a table for 1 on friday at 18:45 under the name Ahmed. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Ahmed, party of 1, on friday at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-008",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        8,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 5.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sunday would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Emily Chen.",
+          "agent": "Just to confirm: a table for 5 on sunday at 20:00 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 5, on sunday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-009",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 3,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 3,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        5,
+        3,
+        3,
+        5,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 3.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For saturday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 3 on saturday at 21:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 3, on saturday at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-010",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "19:30",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "19:30",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        8,
+        3,
+        4,
+        7,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 2 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Emily Chen.",
+          "agent": "Just to confirm: a table for 2 on friday at 19:30 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 2, on friday at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-011",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        5,
+        3,
+        3,
+        5
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 4 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2026-10-03.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under John Smith.",
+          "agent": "Just to confirm: a table for 4 on 2026-10-03 at 19:30 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 4, on 2026-10-03 at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-012",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 10 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tonight would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "noon please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Carlos.",
+          "agent": "Just to confirm: a table for 10 on tonight at 12:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 10, on tonight at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-013",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 8.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Sofia Rossi.",
+          "agent": "Just to confirm: a table for 8 on tonight at 21:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 8, on tonight at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-014",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "date": "2026-10-03",
+        "time": "12:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "2026-10-03",
+        "time": "12:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        4,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "5 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2026-10-03.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Priya Patel.",
+          "agent": "Just to confirm: a table for 5 on 2026-10-03 at 12:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 5, on 2026-10-03 at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-015",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 3,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 3,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        5,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 3 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "October 12 would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 3 on october 12 at 20:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 3, on october 12 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-016",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        4,
+        3,
+        3,
+        3,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "6 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Maria Lopez.",
+          "agent": "Just to confirm: a table for 6 on friday at 20:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 6, on friday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-017",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "19:30",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "19:30",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 6.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "October 12 would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Lucas.",
+          "agent": "Just to confirm: a table for 6 on october 12 at 19:30 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 6, on october 12 at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-018",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "Daniel"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "Daniel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "6 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tomorrow.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Daniel.",
+          "agent": "Just to confirm: a table for 6 on tomorrow at 18:45 under the name Daniel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Daniel, party of 6, on tomorrow at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-019",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 1,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 1,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "1 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2026-10-03.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Alice.",
+          "agent": "Just to confirm: a table for 1 on 2026-10-03 at 19:30 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Alice, party of 1, on 2026-10-03 at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-020",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "tonight",
+        "time": "19:00",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "tonight",
+        "time": "19:00",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 6 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tonight, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Lucas.",
+          "agent": "Just to confirm: a table for 6 on tonight at 19:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 6, on tonight at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-021",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "sunday",
+        "time": "21:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "sunday",
+        "time": "21:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 4 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For sunday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Priya Patel.",
+          "agent": "Just to confirm: a table for 4 on sunday at 21:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 4, on sunday at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-022",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 10 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Sofia Rossi.",
+          "agent": "Just to confirm: a table for 10 on tonight at 18:45 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 10, on tonight at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-023",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "18:45",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "18:45",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Alice.",
+          "agent": "Just to confirm: a table for 8 on tonight at 18:45 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Alice, party of 8, on tonight at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-024",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        4,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "4 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tomorrow.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "6:45 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Maria Lopez.",
+          "agent": "Just to confirm: a table for 4 on tomorrow at 18:45 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 4, on tomorrow at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-025",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "4 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tomorrow, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 4 on tomorrow at 21:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 4, on tomorrow at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-026",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 1,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 1,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "1 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sunday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Lucas.",
+          "agent": "Just to confirm: a table for 1 on sunday at 20:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 1, on sunday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-027",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 1,
+        "date": "2026-10-03",
+        "time": "20:00",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 1,
+        "date": "2026-10-03",
+        "time": "20:00",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 1.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say 2026-10-03.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Alice.",
+          "agent": "Just to confirm: a table for 1 on 2026-10-03 at 20:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Alice, party of 1, on 2026-10-03 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-028",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 2,
+        "date": "october 12",
+        "time": "19:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "october 12",
+        "time": "19:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "October 12.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Carlos.",
+          "agent": "Just to confirm: a table for 2 on october 12 at 19:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 2, on october 12 at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-029",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 6.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Saturday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Priya Patel.",
+          "agent": "Just to confirm: a table for 6 on saturday at 19:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 6, on saturday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-030",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "18:45",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "18:45",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 6 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say october 12.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Maria Lopez.",
+          "agent": "Just to confirm: a table for 6 on october 12 at 18:45 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 6, on october 12 at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-031",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        4,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "10 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tonight would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Lucas.",
+          "agent": "Just to confirm: a table for 10 on tonight at 20:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 10, on tonight at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-032",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "date": "2026-10-03",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "2026-10-03",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 8 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For 2026-10-03, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 6:45 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 8 on 2026-10-03 at 18:45 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 8, on 2026-10-03 at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-033",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tomorrow",
+        "time": "18:45",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        4,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 10.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tomorrow.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "6:45 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is John Smith.",
+          "agent": "Just to confirm: a table for 10 on tomorrow at 18:45 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 10, on tomorrow at 18:45. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-034",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 2,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "2026-10-03",
+        "time": "19:30",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        4,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 2.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For 2026-10-03, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "7:30 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Maria Lopez.",
+          "agent": "Just to confirm: a table for 2 on 2026-10-03 at 19:30 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 2, on 2026-10-03 at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-035",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 10 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tonight, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Alice.",
+          "agent": "Just to confirm: a table for 10 on tonight at 20:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Alice, party of 10, on tonight at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-036",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "date": "sunday",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "sunday",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3,
+        3,
+        4,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 5 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sunday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "noon please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Carlos.",
+          "agent": "Just to confirm: a table for 5 on sunday at 12:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 5, on sunday at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-037",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 5.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tonight would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Carlos.",
+          "agent": "Just to confirm: a table for 5 on tonight at 19:30 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 5, on tonight at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-038",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 2.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tonight, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's John Smith.",
+          "agent": "Just to confirm: a table for 2 on tonight at 19:30 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 2, on tonight at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-039",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 4 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tomorrow, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "8 pm please.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 4 on tomorrow at 20:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 4, on tomorrow at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-040",
+      "scenario": "incremental",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "date": "october 12",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "october 12",
+        "time": "19:30",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 4 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For october 12, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under John Smith.",
+          "agent": "Just to confirm: a table for 4 on october 12 at 19:30 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 4, on october 12 at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-041",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 2,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Daniel"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Daniel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 2 people october 12 at 8 pm under Daniel.",
+          "agent": "Just to confirm: a table for 2 on october 12 at 20:00 under the name Daniel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Daniel, party of 2, on october 12 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-042",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 10 tonight at 7 pm, the name is Priya Patel.",
+          "agent": "Just to confirm: a table for 10 on tonight at 19:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 10, on tonight at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-043",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 8,
+        "date": "tomorrow",
+        "time": "12:00",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "tomorrow",
+        "time": "12:00",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 8 people tomorrow at noon under Maria Lopez.",
+          "agent": "Just to confirm: a table for 8 on tomorrow at 12:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 8, on tomorrow at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-044",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 10,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 10 people october 12 at 8 pm under Lucas.",
+          "agent": "Just to confirm: a table for 10 on october 12 at 20:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 10, on october 12 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-045",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 3,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 3,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 3 tonight at 8 pm, the name is Emily Chen.",
+          "agent": "Just to confirm: a table for 3 on tonight at 20:00 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 3, on tonight at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-046",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 5,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 5 saturday at 7 pm, the name is Alice.",
+          "agent": "Just to confirm: a table for 5 on saturday at 19:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Alice, party of 5, on saturday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-047",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 4,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Daniel"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Daniel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 4 people saturday at 9 pm under Daniel.",
+          "agent": "Just to confirm: a table for 4 on saturday at 21:00 under the name Daniel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Daniel, party of 4, on saturday at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-048",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 4,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tonight",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 4 tonight at 8 pm, the name is Sofia Rossi.",
+          "agent": "Just to confirm: a table for 4 on tonight at 20:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 4, on tonight at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-049",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 8,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 8 october 12 at 8 pm, the name is Priya Patel.",
+          "agent": "Just to confirm: a table for 8 on october 12 at 20:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 8, on october 12 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-050",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "21:00",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "october 12",
+        "time": "21:00",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 6 october 12 at 9 pm, the name is John Smith.",
+          "agent": "Just to confirm: a table for 6 on october 12 at 21:00 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 6, on october 12 at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-051",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 10,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "october 12",
+        "time": "20:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 10 people october 12 at 8 pm under Priya Patel.",
+          "agent": "Just to confirm: a table for 10 on october 12 at 20:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 10, on october 12 at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-052",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 4 people friday at 7 pm under Priya Patel.",
+          "agent": "Just to confirm: a table for 4 on friday at 19:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 4, on friday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-053",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 10,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "saturday",
+        "time": "19:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 10 people saturday at 7 pm under Emily Chen.",
+          "agent": "Just to confirm: a table for 10 on saturday at 19:00 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 10, on saturday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-054",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 2,
+        "date": "sunday",
+        "time": "19:30",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "sunday",
+        "time": "19:30",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 2 people sunday at 7:30 pm under Maria Lopez.",
+          "agent": "Just to confirm: a table for 2 on sunday at 19:30 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 2, on sunday at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-055",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 8,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 8 people friday at noon under Alice.",
+          "agent": "Just to confirm: a table for 8 on friday at 12:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Alice, party of 8, on friday at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-056",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 8,
+        "date": "sunday",
+        "time": "19:30",
+        "name": "Ahmed"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "sunday",
+        "time": "19:30",
+        "name": "Ahmed"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 8 people sunday at 7:30 pm under Ahmed.",
+          "agent": "Just to confirm: a table for 8 on sunday at 19:30 under the name Ahmed. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Ahmed, party of 8, on sunday at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-057",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 3,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 3,
+        "date": "sunday",
+        "time": "20:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 3 people sunday at 8 pm under Emily Chen.",
+          "agent": "Just to confirm: a table for 3 on sunday at 20:00 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 3, on sunday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-058",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 8,
+        "date": "2026-10-03",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "2026-10-03",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Booking for 8 people 2026-10-03 at noon under Carlos.",
+          "agent": "Just to confirm: a table for 8 on 2026-10-03 at 12:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 8, on 2026-10-03 at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-059",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 5,
+        "date": "october 12",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "october 12",
+        "time": "12:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 5 october 12 at noon, the name is Carlos.",
+          "agent": "Just to confirm: a table for 5 on october 12 at 12:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 5, on october 12 at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-060",
+      "scenario": "one_shot",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 2,
+      "slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Emily Chen"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Emily Chen"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I need a table for 10 tonight at 7:30 pm, the name is Emily Chen.",
+          "agent": "Just to confirm: a table for 10 on tonight at 19:30 under the name Emily Chen. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Emily Chen, party of 10, on tonight at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-061",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "21:00",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "21:00",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 8.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Maria Lopez.",
+          "agent": "Just to confirm: a table for 8 on tonight at 21:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 2 of us.",
+          "agent": "No problem. Just to confirm: a table for 2 on tonight at 21:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 2, on tonight at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-062",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Alice"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Alice"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tonight would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Alice.",
+          "agent": "Just to confirm: a table for 2 on tonight at 12:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "No, make it 8 people.",
+          "agent": "No problem. Just to confirm: a table for 8 on tonight at 12:00 under the name Alice. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Alice, party of 8, on tonight at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-063",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 10,
+        "date": "2026-10-03",
+        "time": "21:00",
+        "name": "John Smith"
+      },
+      "expected_slots": {
+        "party_size": 10,
+        "date": "2026-10-03",
+        "time": "21:00",
+        "name": "John Smith"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 8 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "2026-10-03 would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's John Smith.",
+          "agent": "Just to confirm: a table for 8 on 2026-10-03 at 21:00 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 10 of us.",
+          "agent": "No problem. Just to confirm: a table for 10 on 2026-10-03 at 21:00 under the name John Smith. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for John Smith, party of 10, on 2026-10-03 at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-064",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 4,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Lucas"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tonight",
+        "time": "12:00",
+        "name": "Lucas"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 3 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For tonight, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At noon.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Lucas.",
+          "agent": "Just to confirm: a table for 3 on tonight at 12:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 4 of us.",
+          "agent": "No problem. Just to confirm: a table for 4 on tonight at 12:00 under the name Lucas. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Lucas, party of 4, on tonight at 12:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-065",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 6 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Friday.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Priya Patel.",
+          "agent": "Just to confirm: a table for 6 on friday at 19:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 2 of us.",
+          "agent": "No problem. Just to confirm: a table for 2 on friday at 19:00 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Correct, go ahead.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 2, on friday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-066",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 1.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "My name is Priya Patel.",
+          "agent": "Just to confirm: a table for 1 on tonight at 19:30 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 2 of us.",
+          "agent": "No problem. Just to confirm: a table for 2 on tonight at 19:30 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 2, on tonight at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-067",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Maria Lopez"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3,
+        4,
+        4,
+        3,
+        3,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 3.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Friday would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Maria Lopez.",
+          "agent": "Just to confirm: a table for 3 on friday at 19:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 6 of us.",
+          "agent": "No problem. Just to confirm: a table for 6 on friday at 19:00 under the name Maria Lopez. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Maria Lopez, party of 6, on friday at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-068",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 2,
+        "date": "tomorrow",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "tomorrow",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        8,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 3.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Tomorrow.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Around 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Sofia Rossi.",
+          "agent": "Just to confirm: a table for 3 on tomorrow at 20:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "No, make it 2 people.",
+          "agent": "No problem. Just to confirm: a table for 2 on tomorrow at 20:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 2, on tomorrow at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-069",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 1,
+        "date": "october 12",
+        "time": "19:00",
+        "name": "Carlos"
+      },
+      "expected_slots": {
+        "party_size": 1,
+        "date": "october 12",
+        "time": "19:00",
+        "name": "Carlos"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        4,
+        3,
+        3,
+        7,
+        8,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 10 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "October 12 would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 7 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Carlos.",
+          "agent": "Just to confirm: a table for 10 on october 12 at 19:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Actually, 1 of us.",
+          "agent": "No problem. Just to confirm: a table for 1 on october 12 at 19:00 under the name Carlos. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sounds good.",
+          "agent": "Great, your booking is confirmed for Carlos, party of 1, on october 12 at 19:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-070",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 2,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "saturday",
+        "time": "21:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 3 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Saturday would be great.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 9 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under Sofia Rossi.",
+          "agent": "Just to confirm: a table for 3 on saturday at 21:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "No, make it 2 people.",
+          "agent": "No problem. Just to confirm: a table for 2 on saturday at 21:00 under the name Sofia Rossi. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Sofia Rossi, party of 2, on saturday at 21:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-071",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 6,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Priya Patel"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "tonight",
+        "time": "19:30",
+        "name": "Priya Patel"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 8 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's say tonight.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Let's do 7:30 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Under the name Priya Patel.",
+          "agent": "Just to confirm: a table for 8 on tonight at 19:30 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "No, make it 6 people.",
+          "agent": "No problem. Just to confirm: a table for 6 on tonight at 19:30 under the name Priya Patel. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes, that's right.",
+          "agent": "Great, your booking is confirmed for Priya Patel, party of 6, on tonight at 19:30. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-072",
+      "scenario": "correction",
+      "expected_action": "book",
+      "final_action": "book",
+      "finished": true,
+      "turns_used": 7,
+      "slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Ahmed"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Ahmed"
+      },
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        7,
+        3,
+        3,
+        3,
+        9,
+        5
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi there, do you have any tables available?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 4.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "For friday, please.",
+          "agent": "What time works best for you?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "At 8 pm.",
+          "agent": "And under what name should I make the booking?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "It's Ahmed.",
+          "agent": "Just to confirm: a table for 4 on friday at 20:00 under the name Ahmed. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "No, make it 6 people.",
+          "agent": "No problem. Just to confirm: a table for 6 on friday at 20:00 under the name Ahmed. Shall I book it?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Yes please.",
+          "agent": "Great, your booking is confirmed for Ahmed, party of 6, on friday at 20:00. We'll send a confirmation message. Goodbye!",
+          "action": "book"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-073",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 2
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 2.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "I'd rather talk to a real person.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-074",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 5
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        7,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hello, can I make a reservation?",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 5.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Can I speak to a human please?",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-075",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 8
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        10,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "uh, 8 guests.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "I'd rather talk to a real person.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-076",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 5
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "5 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Transfer me to an operator.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-077",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 1
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hi, I'd like to book a table.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "There will be 1 of us.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Transfer me to an operator.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-078",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 4
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Party of 4.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Can I speak to a human please?",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-079",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 3
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 3.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "I'd rather talk to a real person.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-080",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 8
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 8.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Transfer me to an operator.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-081",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 3
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "um, hi, I'd like to book a table for dinner.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "3 people, please.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "I'd rather talk to a real person.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-082",
+      "scenario": "transfer_human",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 3,
+      "slots": {
+        "party_size": 6
+      },
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3,
+        4,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Good evening, I want to reserve a table please.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A table for 6.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Transfer me to an operator.",
+          "agent": "Of course, let me transfer you to a colleague. One moment please.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-083",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I'd like to file a complaint about last night.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-084",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I want to cancel my delivery order.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-085",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I want to cancel my delivery order.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-086",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I'd like to file a complaint about last night.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-087",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Are you hiring for a job in the kitchen?",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-088",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I want to cancel my delivery order.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-089",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "I want to cancel my delivery order.",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-090",
+      "scenario": "out_of_scope",
+      "expected_action": "transfer_to_human",
+      "final_action": "transfer_to_human",
+      "finished": true,
+      "turns_used": 1,
+      "slots": {},
+      "expected_slots": {},
+      "slots_exact": true,
+      "resolved": true,
+      "latencies_ms": [
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Are you hiring for a job in the kitchen?",
+          "agent": "I can only help with table reservations here. Let me transfer you to someone who can help with that.",
+          "action": "transfer_to_human"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-091",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Maria Lopez"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 5 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Maria Lopez.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-092",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 2,
+        "time": "18:45"
+      },
+      "expected_slots": {
+        "party_size": 2,
+        "date": "friday",
+        "time": "18:45",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        4,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 2, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 18:45.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-093",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "time": "19:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "19:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        4,
+        3,
+        4,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 4, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 19:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-094",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 8,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 8,
+        "date": "friday",
+        "time": "21:00",
+        "name": "Carlos"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 8 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A nombre de Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-095",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Ahmed"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 4 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A nombre de Ahmed.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-096",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 6,
+        "time": "12:00"
+      },
+      "expected_slots": {
+        "party_size": 6,
+        "date": "friday",
+        "time": "12:00",
+        "name": "Ahmed"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        3,
+        4,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 6, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 12:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Ahmed.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-097",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "time": "20:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Carlos"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 4 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 20:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-098",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "tomorrow",
+        "time": "21:00",
+        "name": "Emily Chen"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Somos 5 personas.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para mañana.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Emily Chen.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-099",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 5,
+        "time": "21:00"
+      },
+      "expected_slots": {
+        "party_size": 5,
+        "date": "friday",
+        "time": "21:00",
+        "name": "Carlos"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        4,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Buenas, me gustaría hacer una reserva.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 5, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "A las 21:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Carlos.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, correcto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    },
+    {
+      "id": "conv-100",
+      "scenario": "spanish",
+      "expected_action": "book",
+      "final_action": "ask_clarification",
+      "finished": false,
+      "turns_used": 6,
+      "slots": {
+        "party_size": 4,
+        "time": "20:00"
+      },
+      "expected_slots": {
+        "party_size": 4,
+        "date": "friday",
+        "time": "20:00",
+        "name": "Sofia Rossi"
+      },
+      "slots_exact": false,
+      "resolved": false,
+      "latencies_ms": [
+        3,
+        4,
+        3,
+        3,
+        3,
+        4
+      ],
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "transcript": [
+        {
+          "user": "Hola, quiero reservar una mesa.",
+          "agent": "Welcome to the restaurant, I can help you book a table. How many people will be dining?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Para 4, por favor.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "El viernes.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sobre las 20:00.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Mi nombre es Sofia Rossi.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        },
+        {
+          "user": "Sí, perfecto.",
+          "agent": "What date would you like to book?",
+          "action": "ask_clarification"
+        }
+      ],
+      "backend": "stub"
+    }
+  ]
+}
