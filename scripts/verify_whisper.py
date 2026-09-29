@@ -10,6 +10,7 @@ This is the script run before P9 v1.0.0 to confirm the local STT path is
 functional. The real WER benchmark requires LibriSpeech (50 GB) which is
 not committed.
 """
+
 from __future__ import annotations
 
 import time
