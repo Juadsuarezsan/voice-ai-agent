@@ -1,0 +1,15 @@
+# gitleaks configuration: extends the default rules and allowlists one false positive.
+#
+# `ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM` is the public identifier of the
+# ElevenLabs stock voice "Rachel" (documented in the ElevenLabs API reference),
+# not a credential. It matched `generic-api-key` in the first version of
+# .env.example (commit 8cafd2d) because it sat right after ELEVENLABS_API_KEY=.
+
+title = "voice-ai-agent"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public ElevenLabs stock voice id used as a default"
+regexes = ['''21m00Tcm4TlvDq8ikWAM''']
