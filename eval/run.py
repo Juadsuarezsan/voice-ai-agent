@@ -158,7 +158,7 @@ def check(run: dict[str, Any]) -> int:
         for key, a, b in mismatches:
             logger.error("metric {} changed: saved={} now={}", key, a, b)
         return 1
-    logger.info("check ok: deterministic metrics match {}", latest["run_file"])
+    sys.stdout.write(f"check ok: deterministic metrics match {latest['run_file']}\n")
     return 0
 
 
