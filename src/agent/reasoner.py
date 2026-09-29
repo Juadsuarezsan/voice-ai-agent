@@ -343,9 +343,16 @@ class StubReasoner:
             r"\bfor\s+",
             r"\bthis\s+is\s+",
             r"\bi'?m\s+",
+            r"\bbe\s+",
+            r"\bto\s+",
         )
         stop = {"the", "a", "an", "table", "two", "three", "four", "five", "six", "seven"}
         stop |= {"eight", "nine", "ten", "tonight", "tomorrow", "today", "dinner", "lunch"}
+        stop |= {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
+        stop |= {"january", "february", "march", "april", "may", "june", "july", "august"}
+        stop |= {"september", "october", "november", "december", "noon", "please", "instead"}
+        stop |= {"sure", "yes", "no", "not", "just", "now", "later", "there", "here", "myself"}
+        stop |= {"someone", "somebody", "anyone", "a", "one", "me", "us", "you", "it", "that"}
         for prefix in anchors:
             m = re.search(
                 "(?i:" + prefix + r")([A-Z][a-zA-Z\-']+)(?:\s+([A-Z][a-zA-Z\-']+))?", text
