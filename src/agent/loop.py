@@ -125,11 +125,11 @@ class VoiceLoop:
 
             lat = final.get("latency", {})
             latency = LatencyBreakdown(
-                vad_ms=lat.get("vad", 0),
-                stt_ms=lat.get("stt", 0),
-                llm_ms=lat.get("llm", 0),
-                tts_ms=lat.get("tts", 0),
-                logger_ms=lat.get("logger", 0),
+                vad_ms=int(round(lat.get("vad", 0))),
+                stt_ms=int(round(lat.get("stt", 0))),
+                llm_ms=int(round(lat.get("llm", 0))),
+                tts_ms=int(round(lat.get("tts", 0))),
+                logger_ms=int(round(lat.get("logger", 0))),
                 total_ms=total_ms,
             )
             usage = UsageInfo(

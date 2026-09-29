@@ -95,7 +95,7 @@ class TurnRecord(BaseModel):
     action: str
     finished: bool
     slots: list[dict[str, Any]] = Field(default_factory=list)
-    latency: dict[str, int] = Field(default_factory=dict)
+    latency: dict[str, float] = Field(default_factory=dict)
     usage: dict[str, float] = Field(default_factory=dict)
     backends: dict[str, str] = Field(default_factory=dict)
 

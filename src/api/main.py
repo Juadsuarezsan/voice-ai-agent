@@ -160,7 +160,7 @@ async def metrics(request: Request) -> dict[str, object]:
     """Summarise the last 100 persisted turns (observability dashboard data)."""
     voice: VoiceLoop = request.app.state.voice
     recent = voice.conversation_logger.recent(100)
-    totals = [r.latency.get("total", sum(r.latency.values())) for r in recent]
+    totals = [int(round(sum(r.latency.values()))) for r in recent]
     costs = [float(r.usage.get("cost_usd", 0.0)) for r in recent]
     return {
         "turns": len(recent),

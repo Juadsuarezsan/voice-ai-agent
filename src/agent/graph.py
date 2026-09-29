@@ -57,7 +57,7 @@ class TurnState(TypedDict, total=False):
     input_tokens: int
     output_tokens: int
     cost_usd: float
-    latency: dict[str, int]
+    latency: dict[str, float]
     backends: dict[str, str]
 
 
@@ -71,7 +71,7 @@ def _timed(name: str, fn: NodeFn) -> NodeFn:
         t0 = time.perf_counter()
         logger.debug("node={} enter turn={} keys={}", name, state.get("turn"), sorted(state.keys()))
         out = await fn(state)
-        ms = int((time.perf_counter() - t0) * 1000)
+        ms = round((time.perf_counter() - t0) * 1000, 3)
         latency = dict(state.get("latency", {}))
         latency[name] = ms
         out["latency"] = latency
