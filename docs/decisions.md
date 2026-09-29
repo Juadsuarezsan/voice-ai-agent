@@ -1,45 +1,91 @@
-# Technical decisions — Voice AI Conversational Agent
+# Decisiones técnicas — Voice AI Conversational Agent
 
-This document records the non-obvious choices and what alternative was rejected.
-A line gets added here every time the system gains a knob a future maintainer
-might second-guess.
+Cada entrada registra la alternativa rechazada y el criterio. Si una decisión
+cambia, se añade una entrada nueva en lugar de editar la anterior.
 
-## Why Pydantic v2 over `attrs` or `dataclasses`
+## 1. Whisper local como camino principal, Whisper API como opción medida
 
-Pydantic validates at the I/O boundary (HTTP / LLM JSON output / DB rows) and
-its v2 rewrite is fast enough that we don't pay a runtime cost. Plain
-`dataclasses` would force us to write the same validators by hand; `attrs`
-matches Pydantic v2 on ergonomics but isn't the default in FastAPI.
+Rechazado: usar solo la API hospedada. Motivo: la spec exige WER sobre
+LibriSpeech y Common Voice con un modelo controlado; `whisper-large-v3` local
+en GPU permite reproducir el benchmark sin costo por minuto y sin enviar audio
+a un tercero. La API (`WHISPER_BACKEND=api`, `whisper-1`, $0.006/min) queda
+implementada con httpx + tenacity para la comparativa de costo del DoD. En CPU
+solo son razonables `tiny`/`base`; por eso el extra `[stt]` no se instala en la
+imagen base y el eval marca la fila como pendiente.
 
-## Why LangGraph over LangChain Chains
+## 2. ElevenLabs por REST directo, sin el SDK del proveedor
 
-The agent flow has explicit branches (route after intent classification,
-reflection loops with caps, parallel/sequential rounds). LangGraph's
-`StateGraph` lets us see those transitions in code; LangChain `Chain`s hide
-them inside `__call__` overloads, which makes debugging the wrong path
-painful in production.
+Rechazado: `elevenlabs` (SDK) como dependencia base. Motivo: se usa un único
+endpoint (`/v1/text-to-speech/{voice_id}`); httpx ya está en el proyecto y con
+él el timeout, los reintentos (429/5xx/transporte) y el mock con `respx` son
+explícitos y verificables. XTTS-v2 (coqui) se mantiene como alternativa local
+para la comparativa de MOS, tras el extra `[tts]`.
 
-## Why a free-tier fallback for every paid API
+## 3. LangGraph `StateGraph` en lugar de un bucle secuencial
 
-Every external API has been wrapped behind a `Protocol` with a
-deterministic-but-realistic offline implementation. Three benefits:
-1. Tests run in CI without burning real credits.
-2. Demo on a new machine works without 6 signups.
-3. When a paid API rate-limits us in prod, the fallback is the failover —
-   not a 500 response.
+Rechazado: el bucle `for` original (STT → reasoner → TTS). Motivo: el grafo
+hace explícita la arista condicional VAD → `no_speech_node`, nombra los nodos
+(lo que permite loguear entrada/salida y latencia por nodo con un solo
+decorador) y deja preparado el punto de extensión para RAG o `tool_call` como
+nodos adicionales sin reescribir el orquestador. Regla defensiva: los nodos se
+llaman `*_node` para no colisionar nunca con una clave del estado.
 
-## Why we don't auto-tune anything in production
+## 4. VAD por energía como predeterminado, Silero opcional
 
-When the eval drift detector flags a metric drop, the system **proposes** a
-parameter change with simulated impact (against the gold set) — it does not
-auto-apply. The applier is the human or, in the prod loop, an A/B canary on
-10% traffic that auto-rolls-back on regression. Silent auto-tuning at 3am is
-how RAG degrades for three weeks before anyone notices.
+Rechazado: exigir `silero-vad` siempre. Motivo: arrastra torch (GB de disco) y
+en el flujo HTTP el cliente ya delimita el turno al soltar el botón; el VAD
+sirve para descartar silencios y ahorrar llamadas a STT, algo que el detector
+por RMS resuelve (ablación: 10/10 silencios rechazados, 10/10 voces aceptadas
+en audio sintético). Silero es el camino para streaming real (LiveKit/Twilio),
+donde hay que detectar fin de turno dentro de un flujo continuo.
 
-## Why a 70% coverage floor (not 90%)
+## 5. Slot filling determinista como fallback, no como producto
 
-90% pushes time into mocking I/O thoroughly enough to write the mock, which
-is wasted effort compared to writing more integration-level eval cases. We
-front-load eval coverage instead. The 70% floor is enough to catch the
-"someone deleted a private helper that secretly was used elsewhere" class of
-bug.
+Rechazado: eliminar el stub y exigir llave de API. Motivo: el stub hace que CI,
+tests, demo y `python -m eval.run` funcionen sin secretos y da un baseline
+honesto para el LLM. Se etiqueta siempre como "fallback determinista, sin LLM";
+sus 90/100 no se presentan como resolution rate del sistema. Consecuencia: el
+stub es solo inglés y falla 10/10 en español por diseño (ver
+`docs/error_analysis.md`); no se amplía para maquillar la métrica.
+
+## 6. Confirmación explícita antes de reservar
+
+Rechazado: reservar en cuanto se conocen los cuatro slots. Motivo: en voz los
+errores de STT en nombres y horas son los más frecuentes; una lectura de
+confirmación cuesta un turno y evita reservas mal hechas. Se modela con
+`awaiting_confirmation` en el estado y con acciones de corrección (`No, make
+it 6 people`).
+
+## 7. Salida del LLM como JSON validado con Pydantic y tenacity fuera del SDK
+
+Rechazado: confiar en los reintentos automáticos del SDK y en `json.loads`.
+Motivo: el SDK reintenta con política propia y opaca; con `max_retries=0` y
+tenacity el backoff, los tipos de error reintentables y el número de intentos
+están en el código y se prueban con mocks. La respuesta se valida contra
+`LLMTurnOutput`; cualquier desvío es `ReasonerError` → 502, nunca un fallback
+silencioso al stub (que enmascararía un incidente de producción).
+
+## 8. Modelo pinneado por fecha
+
+`ANTHROPIC_MODEL=claude-sonnet-4-5-20250929`. Rechazado: alias sin fecha.
+Motivo: reproducibilidad de `eval/runs/` y del costo por token.
+
+## 9. Redacción de PII en el límite de persistencia, no en el turno
+
+Rechazado: anonimizar antes del reasoner. Motivo: el agente necesita el nombre
+para completar la reserva. Se seudonimiza (`NAME_<hash>`) y se enmascaran
+teléfonos, correos y tarjetas justo antes de escribir en el
+`ConversationLogger`, con tests.
+
+## 10. `python -m eval.run --check` en CI
+
+Rechazado: publicar métricas escritas a mano en el README. Motivo: la tabla
+de `eval/RESULTS.md` es una función pura del JSON de la corrida; `--check`
+vuelve a ejecutar la parte determinista y falla si los números cambian sin
+regenerar el archivo. Un test adicional comprueba que `RESULTS.md` es
+exactamente el render del último run.
+
+## 11. Umbral de cobertura 70 % con cobertura real 97 %
+
+El umbral es el del DoD; la cobertura alta viene de que cada backend externo
+tiene un doble (mock, `respx` o módulo falso) y no de tests triviales.

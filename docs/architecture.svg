@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" width="1180" height="560" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .box { fill:#ffffff; stroke:#1f2937; stroke-width:1.5; rx:10; }
+      .node { fill:#eef2ff; stroke:#4338ca; stroke-width:1.5; rx:10; }
+      .ext { fill:#fff7ed; stroke:#c2410c; stroke-width:1.5; rx:10; stroke-dasharray:6 4; }
+      .store { fill:#ecfdf5; stroke:#047857; stroke-width:1.5; rx:10; }
+      .title { font-size:20px; font-weight:700; fill:#111827; }
+      .h { font-size:14px; font-weight:700; fill:#111827; }
+      .t { font-size:12px; fill:#374151; }
+      .s { font-size:11px; fill:#6b7280; }
+      .edge { stroke:#4b5563; stroke-width:1.5; fill:none; marker-end:url(#arrow); }
+      .edge-alt { stroke:#9ca3af; stroke-width:1.5; fill:none; stroke-dasharray:5 4; marker-end:url(#arrow); }
+    </style>
+  </defs>
+
+  <text x="24" y="34" class="title">Voice AI Conversational Agent — un turno a través del grafo LangGraph</text>
+  <text x="24" y="54" class="s">FastAPI · POST /api/turn (texto o WAV base64) · trace_id por turno · latencia y costo por nodo</text>
+
+  <!-- Client -->
+  <rect x="24" y="90" width="170" height="86" class="box"/>
+  <text x="40" y="114" class="h">Cliente</text>
+  <text x="40" y="134" class="t">demo/index.html</text>
+  <text x="40" y="150" class="t">Web Audio → WAV 16 kHz</text>
+  <text x="40" y="166" class="s">o texto (tests, eval)</text>
+
+  <!-- API -->
+  <rect x="234" y="90" width="190" height="86" class="box"/>
+  <text x="250" y="114" class="h">src/api/main.py</text>
+  <text x="250" y="134" class="t">Pydantic 422 · slowapi</text>
+  <text x="250" y="150" class="t">CORS por env · X-Trace-Id</text>
+  <text x="250" y="166" class="s">errores tipados 502/422</text>
+
+  <!-- VoiceLoop -->
+  <rect x="464" y="90" width="190" height="86" class="box"/>
+  <text x="480" y="114" class="h">src/agent/loop.py</text>
+  <text x="480" y="134" class="t">VoiceLoop: sesiones,</text>
+  <text x="480" y="150" class="t">slots, historial, trace_id</text>
+  <text x="480" y="166" class="s">→ VoicePipeline.run()</text>
+
+  <line x1="194" y1="133" x2="232" y2="133" class="edge"/>
+  <line x1="424" y1="133" x2="462" y2="133" class="edge"/>
+
+  <!-- Graph container -->
+  <rect x="24" y="210" width="1132" height="200" fill="#f9fafb" stroke="#d1d5db" stroke-width="1" rx="14"/>
+  <text x="40" y="234" class="h">StateGraph (src/agent/graph.py) — cada nodo va envuelto en _timed(): log de entrada/salida + latencia</text>
+
+  <rect x="40" y="256" width="170" height="110" class="node"/>
+  <text x="56" y="280" class="h">vad_node</text>
+  <text x="56" y="300" class="t">EnergyVAD (numpy)</text>
+  <text x="56" y="316" class="t">SileroVAD (lazy torch)</text>
+  <text x="56" y="336" class="s">¿hay voz? ¿fin de turno?</text>
+
+  <rect x="262" y="256" width="170" height="110" class="node"/>
+  <text x="278" y="280" class="h">stt_node</text>
+  <text x="278" y="300" class="t">StubSTT · Whisper local</text>
+  <text x="278" y="316" class="t">Whisper API (httpx)</text>
+  <text x="278" y="336" class="s">timeout + tenacity</text>
+
+  <rect x="484" y="256" width="200" height="110" class="node"/>
+  <text x="500" y="280" class="h">reasoner_node</text>
+  <text x="500" y="300" class="t">ClaudeReasoner (anthropic SDK)</text>
+  <text x="500" y="316" class="t">JSON → Pydantic LLMTurnOutput</text>
+  <text x="500" y="336" class="s">respond · ask_clarification ·</text>
+  <text x="500" y="352" class="s">book · transfer_to_human</text>
+
+  <rect x="736" y="256" width="170" height="110" class="node"/>
+  <text x="752" y="280" class="h">tts_node</text>
+  <text x="752" y="300" class="t">StubTTS · ElevenLabs REST</text>
+  <text x="752" y="316" class="t">XTTS-v2 (lazy)</text>
+  <text x="752" y="336" class="s">WAV/MP3 base64</text>
+
+  <rect x="958" y="256" width="180" height="110" class="node"/>
+  <text x="974" y="280" class="h">logger_node</text>
+  <text x="974" y="300" class="t">costo USD (tokens, chars,</text>
+  <text x="974" y="316" class="t">minutos) + redacción PII</text>
+  <text x="974" y="336" class="s">→ ConversationLogger</text>
+
+  <line x1="210" y1="311" x2="260" y2="311" class="edge"/>
+  <line x1="432" y1="311" x2="482" y2="311" class="edge"/>
+  <line x1="684" y1="311" x2="734" y2="311" class="edge"/>
+  <line x1="906" y1="311" x2="956" y2="311" class="edge"/>
+
+  <!-- no speech branch -->
+  <path d="M 125 366 L 125 392 L 821 392 L 821 368" class="edge-alt"/>
+  <text x="300" y="386" class="s">sin voz → no_speech_node ("Sorry, I didn't catch that") → tts_node</text>
+
+  <!-- External services -->
+  <rect x="484" y="440" width="200" height="60" class="ext"/>
+  <text x="500" y="462" class="h">Anthropic Messages API</text>
+  <text x="500" y="480" class="s">claude-sonnet-4-5-20250929</text>
+  <line x1="584" y1="366" x2="584" y2="438" class="edge-alt"/>
+
+  <rect x="262" y="440" width="170" height="60" class="ext"/>
+  <text x="278" y="462" class="h">OpenAI Whisper API</text>
+  <text x="278" y="480" class="s">opcional (WHISPER_BACKEND=api)</text>
+  <line x1="347" y1="366" x2="347" y2="438" class="edge-alt"/>
+
+  <rect x="736" y="440" width="170" height="60" class="ext"/>
+  <text x="752" y="462" class="h">ElevenLabs API</text>
+  <text x="752" y="480" class="s">opcional (TTS_BACKEND=elevenlabs)</text>
+  <line x1="821" y1="366" x2="821" y2="438" class="edge-alt"/>
+
+  <!-- Storage -->
+  <rect x="958" y="440" width="180" height="60" class="store"/>
+  <text x="974" y="462" class="h">memory · SQLite · Postgres</text>
+  <text x="974" y="480" class="s">psycopg pool · transcript redactado</text>
+  <line x1="1048" y1="366" x2="1048" y2="438" class="edge"/>
+
+  <!-- Observability -->
+  <rect x="40" y="440" width="170" height="60" class="box"/>
+  <text x="56" y="462" class="h">Observabilidad</text>
+  <text x="56" y="480" class="s">loguru + trace_id · LangSmith por env</text>
+
+  <text x="24" y="540" class="s">Eval: python -m eval.run → eval/runs/*.json + eval/RESULTS.md (stub offline; Claude/Whisper/ElevenLabs pendientes de llaves)</text>
+</svg>
